@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from 'react';
+import {HashRouter,Switch,Route} from 'react-router-dom';
+// import logo from './logo.svg';
+import './App.scss';
+// 引用组件
+import Home from './views/Home';
+import About from './views/About';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// 自定义组件
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div className="app">
+        <h1>主入口</h1>
+        <HashRouter>
+        <Switch>
+          <Route component={Home} exact path="/"/>
+          <Route component={About} exact path="/about"/>
+        </Switch>
+      </HashRouter>
+      </div>
+      
+    )
+  }
 }
-
+// exact:精准匹配路由
 export default App;
