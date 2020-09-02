@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import "./aaa.scss";
 class Home extends Component{
     constructor(){
         super();
