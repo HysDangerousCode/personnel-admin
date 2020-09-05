@@ -2,3 +2,7 @@
 @import "./sassConfig.scss";
 // 重置浏览器样式
 @import "./normalize.scss";
+// 全局公共样式
+body {
+    background: #001529;
+}

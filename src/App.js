@@ -1,10 +1,7 @@
 import React,{Component} from 'react';
 import {HashRouter,Switch,Route} from 'react-router-dom';
-// import logo from './logo.svg';
-// import './App.scss';
-// 引用组件
-import Home from './views/Home';
-import About from './views/About';
+// 引用页面组件
+import Login from './views/login/index';
 
 // 自定义组件
 class App extends Component {
@@ -15,11 +12,9 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <h1>主入口</h1>
         <HashRouter>
         <Switch>
-          <Route component={Home} exact path="/"/>
-          <Route component={About} exact path="/about"/>
+          <Route component={Login} exact path="/"/>
         </Switch>
       </HashRouter>
       </div>
