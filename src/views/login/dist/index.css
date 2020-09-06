@@ -16,6 +16,7 @@
   color: #ffffff;
 }
 .form-header .column {
+  margin-bottom: 0px !important;
   color: #ffffff;
   float: left;
   font-size: 16px;
