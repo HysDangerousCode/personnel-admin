@@ -5,7 +5,7 @@ import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
 // 登录页样式
 import "./index.scss";
 // 登录表单组件
-class LoginName extends Component {
+class LoginForm extends Component {
     constructor() {
         super();
         this.state = {};
@@ -13,9 +13,9 @@ class LoginName extends Component {
     onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
-    // 点击事件
+    // 点击事件-登录和注册组件的切换
     toggleForm=()=>{
-        alert(111);
+        this.props.hys("register");
     }
     render() {
         return (
@@ -55,4 +55,4 @@ class LoginName extends Component {
     }
 }
 // 导出到主入口
-export default LoginName;
+export default LoginForm;

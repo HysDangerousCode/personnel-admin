@@ -15,11 +15,20 @@ class Login extends Component {
             formType: "login"
         };
     }
+    // 
+    switchForm = (value) => {
+        this.setState({
+            formType: value
+        });
+        console.log(value);
+    }
     render() {
         return (
             <div className="form-wrap">
                 <div>
-                    {this.state.formType === "login" ? <LoginForm></LoginForm> : <RegisterForm></RegisterForm>}
+                    {this.state.formType === "login" ?
+                        <LoginForm hys={this.switchForm}></LoginForm> :
+                        <RegisterForm hys={this.switchFOrm}></RegisterForm>}
                 </div>
             </div>
         )

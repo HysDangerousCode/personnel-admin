@@ -13,12 +13,16 @@ class RegisterForm extends Component {
     onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
+    // 点击事件-注册和登录组件之间的切换
+    toggleForm=()=>{
+        this.props.hys("login");
+    }
     render() {
         return (
             <Fragment>
                 <div className="form-header">
                     <h4 className="column">注册</h4>
-                    <span>登录</span>
+                    <span onClick={this.toggleForm}>登录</span>
                 </div>
                 <div className="form-content">
                     <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={() => this.onFinish}>
