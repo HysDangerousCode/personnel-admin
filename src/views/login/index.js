@@ -27,12 +27,12 @@ class Login extends Component {
             <div className="form-wrap">
                 <div>
                     {this.state.formType === "login" ?
-                        <LoginForm hys={this.switchForm}></LoginForm> :
-                        <RegisterForm hys={this.switchFOrm}></RegisterForm>}
+                        <LoginForm switchForm={this.switchForm}></LoginForm> :
+                        <RegisterForm switchForm={this.switchForm}></RegisterForm>}
                 </div>
             </div>
         )
     }
 }
-// 导出到主入口
+// 导出登录页
 export default Login;

@@ -15,7 +15,7 @@ class LoginForm extends Component {
     };
     // 点击事件-登录和注册组件的切换
     toggleForm=()=>{
-        this.props.hys("register");
+        this.props.switchForm("register");
     }
     render() {
         return (
@@ -54,5 +54,5 @@ class LoginForm extends Component {
         )
     }
 }
-// 导出到主入口
+// 导出登录表单组件
 export default LoginForm;

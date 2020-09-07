@@ -15,7 +15,7 @@ class RegisterForm extends Component {
     };
     // 点击事件-注册和登录组件之间的切换
     toggleForm=()=>{
-        this.props.hys("login");
+        this.props.switchForm("login");
     }
     render() {
         return (
@@ -58,5 +58,5 @@ class RegisterForm extends Component {
         )
     }
 }
-// 导出到主入口
+// 导出注册表单组件
 export default RegisterForm;
