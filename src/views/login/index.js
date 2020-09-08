@@ -15,7 +15,7 @@ class Login extends Component {
             formType: "login"
         };
     }
-    // 
+    // 切换登录和注册组件字段
     switchForm = (value) => {
         this.setState({
             formType: value

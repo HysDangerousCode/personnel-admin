@@ -15,6 +15,7 @@ class RegisterForm extends Component {
     };
     // 点击事件-注册和登录组件之间的切换
     toggleForm=()=>{
+        // 调用父级的方法
         this.props.switchForm("login");
     }
     render() {
@@ -50,7 +51,7 @@ class RegisterForm extends Component {
                             </Row>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button" block>登录</Button>
+                            <Button type="primary" htmlType="submit" className="login-form-button" block>注册</Button>
                         </Form.Item>
                     </Form>
                 </div>

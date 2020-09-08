@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from "react";
+import React, { Component, Fragment } from "react";
 // antd组件引入
 import { Form, Input, Button, Row, Col } from 'antd';
 import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
@@ -14,7 +14,8 @@ class LoginForm extends Component {
         console.log('Received values of form: ', values);
     };
     // 点击事件-登录和注册组件的切换
-    toggleForm=()=>{
+    toggleForm = () => {
+        // 调用父级的方法
         this.props.switchForm("register");
     }
     render() {
@@ -27,12 +28,33 @@ class LoginForm extends Component {
                 <div className="form-content">
                     <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={() => this.onFinish}>
                         {/* 用户名 */}
-                        <Form.Item name="username" rules={[{ required: true, message: '请输入用户名！' }]}>
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" />
+                        <Form.Item name="username" rules={
+                            [
+                                { required: true, message: '邮箱不能为空！' },
+                                { type: "email", message: "邮箱格式不正确！" }
+                            ]
+                        }>
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                         </Form.Item>
                         {/* 密码框 */}
-                        <Form.Item name="password" rules={[{ required: true, message: '请输入密码！' }]}>
-                            <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="密码" />
+                        <Form.Item name="password" rules={
+                            [
+                                { required: true, message: '密码不能为空！' },
+                                // { min: 6, message: '不能小于6位！' },
+                                // { max: 20, message: '不能小于20位！' },
+                                { pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/, message: '请输入大于6位小于20位的字母+数字！' }
+                                // ({ getFieldValue }) => ({
+                                //     validator(rule, value) {
+                                //         if (value.length <= 6) {
+                                //             return Promise.reject('不能小于6位！');
+                                //         } else {
+                                //             return Promise.resolve();
+                                //         }
+                                //     },
+                                // }),
+                            ]
+                        }>
+                            <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="字母+密码，大于6位 小于20位" />
                         </Form.Item>
                         {/* 验证码 */}
                         <Form.Item name="Code" rules={[{ required: true, message: '请输入验证码！' }]}>
