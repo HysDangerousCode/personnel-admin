@@ -1,7 +1,7 @@
 // 请求拦截器
 import axios from "axios";
 // 创建实例
-cosnt service = axios.create({
+const service = axios.create({
     baseURL: "devApi",
     timeout: 5000,
     // headers: { "X-Custom-Header": "foobar" }
