@@ -6,7 +6,7 @@ import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
 import "./index.scss";
 // 正则验证文件
 import { validate_password } from "../../utils/validate";
-// API导入
+// 登录API导入
 import { Login } from "../../api/account";
 // 登录表单组件
 class LoginForm extends Component {
