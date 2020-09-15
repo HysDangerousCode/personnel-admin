@@ -12,7 +12,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // 请求拦截器
 // 创建实例
 var service = _axios["default"].create({
-  baseURL: "devApi",
+  baseURL: process.env.REACT_APP_API,
+  // baseURL: "/devApi",
   timeout: 5000 // headers: { "X-Custom-Header": "foobar" }
 
 }); // 请求拦截
