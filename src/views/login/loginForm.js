@@ -1,19 +1,23 @@
 import React, { Component, Fragment } from "react";
 // antd组件引入
-import { Form, Input, Button, Row, Col } from 'antd';
+import { Form, Input, Button, Row, Col, message } from 'antd';
 import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
 // 登录页样式
 import "./index.scss";
 // 正则验证文件
-import { validate_password } from "../../utils/validate";
+import { validate_password, validate_email } from "../../utils/validate";
 // 登录API导入
-import { Login } from "../../api/account";
+import { Login, GetCode } from "../../api/account";
 // 登录表单组件
 class LoginForm extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            username: "",
+            code_button_disabled: true
+        };
     }
+    // 登录
     onFinish = (values) => {
         Login().then(response => {
             console.log(response);
@@ -27,7 +31,34 @@ class LoginForm extends Component {
         // 调用父级的方法
         this.props.switchForm("register");
     }
+    // 获取验证码
+    getCode = () => {
+        let _this = this;
+        if (!_this.state.username) {
+            message.warning("用户名不能为空！", 1);
+        }
+        const requestData = {
+            username: _this.state.username,
+            module: "login"
+        };
+        GetCode(requestData).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+    // input输入处理
+    inputChange = (e) => {
+        let _this = this;
+        let _value = e.target.value;
+        _this.setState({
+            username: _value
+        });
+        console.log(_value);
+    }
     render() {
+        const { username, code_button_disabled } = this.state;
+        const _this = this;
         return (
             <Fragment>
                 <div className="form-header">
@@ -40,10 +71,21 @@ class LoginForm extends Component {
                         <Form.Item name="username" rules={
                             [
                                 { required: true, message: '邮箱不能为空！' },
-                                { type: "email", message: "邮箱格式不正确！" }
+                                // { type: "email", message: "邮箱格式不正确！" }
+                                ({ getFieldValue }) => ({
+                                    validator(rule, value) {
+                                        if (validate_email(value)) {
+                                            _this.setState({
+                                                code_button_disabled: false
+                                            });
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject('邮箱格式不正确！');
+                                    },
+                                }),
                             ]
                         }>
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
+                            <Input value={username} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                         </Form.Item>
                         {/* 密码框 */}
                         <Form.Item name="password" rules={
@@ -77,7 +119,7 @@ class LoginForm extends Component {
                                     <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
-                                    <Button type="danger" block>获取验证码</Button>
+                                    <Button type="danger" block disabled={code_button_disabled} onClick={this.getCode}>获取验证码</Button>
                                 </Col>
                             </Row>
                         </Form.Item>

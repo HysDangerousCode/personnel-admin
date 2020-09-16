@@ -5,7 +5,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 // 可配置多个跨域
 module.exports = function(app) {
     app.use(createProxyMiddleware("/devApi", {
-        target: "http://www.web-jshtml.cn/api/react", //配置要请求的服务器地址
+        target: process.env.REACT_APP_BASE_URL, //配置要请求的服务器地址
         changeOrigin: true, //是否允许跨域
         pathRewrite: {
             "^/devApi": "",

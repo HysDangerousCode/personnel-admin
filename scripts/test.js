@@ -4,7 +4,7 @@
 process.env.BABEL_ENV = 'test';
 process.env.NODE_ENV = 'test';
 process.env.PUBLIC_URL = '';
-process.env.REACT_APP_ENV = '/devApi';
+process.env.REACT_APP_API = '/devApi';
 // process.env.REACT_APP_BASE_URL = "http://www.web-jshtml.cn/api/react";
 
 
