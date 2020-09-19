@@ -5,7 +5,8 @@ import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
 // 登录页样式
 import "./index.scss";
 // 正则验证文件
-import { validate_password, validate_email } from "../../utils/validate";
+// validate_email
+import { validate_password } from "../../utils/validate";
 // 登录API导入
 import { Login, GetCode } from "../../api/account";
 // 登录表单组件
@@ -14,7 +15,8 @@ class LoginForm extends Component {
         super();
         this.state = {
             username: "",
-            code_button_disabled: true
+            // code_button_disabled: true
+            code_button_loading: false
         };
     }
     // 登录
@@ -57,8 +59,9 @@ class LoginForm extends Component {
         console.log(_value);
     }
     render() {
-        const { username, code_button_disabled } = this.state;
-        const _this = this;
+        // code_button_disabled
+        const { username, code_button_loading } = this.state;
+        // const _this = this;
         return (
             <Fragment>
                 <div className="form-header">
@@ -72,17 +75,17 @@ class LoginForm extends Component {
                             [
                                 { required: true, message: '邮箱不能为空！' },
                                 // { type: "email", message: "邮箱格式不正确！" }
-                                ({ getFieldValue }) => ({
-                                    validator(rule, value) {
-                                        if (validate_email(value)) {
-                                            _this.setState({
-                                                code_button_disabled: false
-                                            });
-                                            return Promise.resolve();
-                                        }
-                                        return Promise.reject('邮箱格式不正确！');
-                                    },
-                                }),
+                                // ({ getFieldValue }) => ({
+                                //     validator(rule, value) {
+                                //         if (validate_email(value)) {
+                                //             _this.setState({
+                                //                 code_button_disabled: false
+                                //             });
+                                //             return Promise.resolve();
+                                //         }
+                                //         return Promise.reject('邮箱格式不正确！');
+                                //     },
+                                // }),
                             ]
                         }>
                             <Input value={username} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
@@ -119,7 +122,8 @@ class LoginForm extends Component {
                                     <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
-                                    <Button type="danger" block disabled={code_button_disabled} onClick={this.getCode}>获取验证码</Button>
+                                    {/* disabled={code_button_disabled} */}
+                                    <Button type="danger" block onClick={this.getCode} loading={code_button_loading}>获取验证码</Button>
                                 </Col>
                             </Row>
                         </Form.Item>
