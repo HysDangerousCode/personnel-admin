@@ -5,7 +5,6 @@ import { UserOutlined, UnlockOutlined } from '@ant-design/icons';
 // 登录页样式
 import "./index.scss";
 // 正则验证文件
-// validate_email
 import { validate_password } from "../../utils/validate";
 // 登录API导入
 import { Login } from "../../api/account";
@@ -16,10 +15,7 @@ class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
-            username: "",
-            code_button_loading: false,
-            code_button_disabled: false,
-            code_button_text: "获取验证码"
+            username: ""
         };
     }
     // 登录
@@ -61,18 +57,7 @@ class LoginForm extends Component {
                         <Form.Item name="username" rules={
                             [
                                 { required: true, message: '邮箱不能为空！' },
-                                // { type: "email", message: "邮箱格式不正确！" }
-                                // ({ getFieldValue }) => ({
-                                //     validator(rule, value) {
-                                //         if (validate_email(value)) {
-                                //             _this.setState({
-                                //                 code_button_disabled: false
-                                //             });
-                                //             return Promise.resolve();
-                                //         }
-                                //         return Promise.reject('邮箱格式不正确！');
-                                //     },
-                                // }),
+                                { type: "email", message: "邮箱格式不正确！" }
                             ]
                         }>
                             <Input value={username} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
@@ -95,7 +80,7 @@ class LoginForm extends Component {
                                 // }),
                             ]
                         }>
-                            <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="字母+密码，大于6位 小于20位" />
+                            <Input type="password" prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="字母+密码，大于6位 小于20位" />
                         </Form.Item>
                         {/* 验证码 */}
                         <Form.Item name="Code" rules={
@@ -109,7 +94,7 @@ class LoginForm extends Component {
                                     <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
-                                    <Code username={username}/>
+                                    <Code username={username} />
                                     {/* <Button type="danger" block disabled={code_button_disabled} onClick={this.getCode} loading={code_button_loading}>{code_button_text}</Button> */}
                                 </Col>
                             </Row>

@@ -6,6 +6,8 @@ import { Button, message } from "antd";
 import { GetCode } from "../../api/account";
 // 正则验证文件
 import { validate_email } from "../../utils/validate";
+// 定时器
+let timer = null;
 // 验证码按钮组件
 class Code extends Component {
     constructor(props) {
@@ -23,6 +25,10 @@ class Code extends Component {
             username
         });
     }
+    // 组件销毁
+    componentWillUnmount(){
+        clearInterval(timer);
+    };
     // 获取验证码
     getCode = () => {
         let _this = this;
@@ -59,8 +65,6 @@ class Code extends Component {
     // 验证码倒计时
     countDown = () => {
         let _this = this;
-        // 定时器
-        let timer = null;
         // 倒计时时间
         let sec = 60;
         // 修改状态
