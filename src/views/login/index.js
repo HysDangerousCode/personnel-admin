@@ -25,7 +25,7 @@ class Login extends Component {
     render() {
         return (
             <div className="form-wrap">
-                <div>
+                <div className="form-container">
                     {this.state.formType === "login" ?
                         <LoginForm switchForm={this.switchForm}></LoginForm> :
                         <RegisterForm switchForm={this.switchForm}></RegisterForm>}

@@ -15,8 +15,9 @@ class LoginForm extends Component {
         super();
         this.state = {
             username: "",
-            // code_button_disabled: true
-            code_button_loading: false
+            code_button_loading: false,
+            code_button_disabled: false,
+            code_button_text: "获取验证码"
         };
     }
     // 登录
@@ -39,13 +40,24 @@ class LoginForm extends Component {
         if (!_this.state.username) {
             message.warning("用户名不能为空！", 1);
         }
+        _this.setState({
+            code_button_loading: true,
+            code_button_text: "发送中"
+        });
         const requestData = {
             username: _this.state.username,
             module: "login"
         };
         GetCode(requestData).then(response => {
+            // 执行倒计时
+            let _this = this;
+            _this.countDown();
             console.log(response);
         }).catch(error => {
+            _this.setState({
+                code_button_loading: false,
+                code_button_text: "重新获取"
+            });
             console.log(error);
         });
     }
@@ -58,9 +70,40 @@ class LoginForm extends Component {
         });
         console.log(_value);
     }
+    // 验证码倒计时
+    countDown = () => {
+        let _this = this;
+        // 定时器
+        let timer = null;
+        // 倒计时时间
+        let sec = 60;
+        // 修改状态
+        _this.setState({
+            code_button_loading: false,
+            code_button_disabled: true,
+            code_button_text: `${sec}S`
+        });
+        timer = setInterval(() => {
+            let _this = this;
+            // 递减秒数
+            sec--;
+            if (sec <= 0) {
+                _this.setState({
+                    code_button_text: "重新获取",
+                    code_button_disabled: false
+                });
+                clearInterval(timer);
+                return;
+            }
+            _this.setState({
+                code_button_text: `${sec}S`
+            });
+        }, 1000);
+        // setInterval\clearInterval:不间断定时器
+        // setTimeout()\clearTimeout:只执行一次
+    }
     render() {
-        // code_button_disabled
-        const { username, code_button_loading } = this.state;
+        const { username, code_button_loading, code_button_text, code_button_disabled } = this.state;
         // const _this = this;
         return (
             <Fragment>
@@ -122,8 +165,7 @@ class LoginForm extends Component {
                                     <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
-                                    {/* disabled={code_button_disabled} */}
-                                    <Button type="danger" block onClick={this.getCode} loading={code_button_loading}>获取验证码</Button>
+                                    <Button type="danger" block disabled={code_button_disabled} onClick={this.getCode} loading={code_button_loading}>{code_button_text}</Button>
                                 </Col>
                             </Row>
                         </Form.Item>
