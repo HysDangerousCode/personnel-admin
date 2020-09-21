@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Login = Login;
+exports.Register = Register;
 exports.GetCode = GetCode;
 
 var _request = _interopRequireDefault(require("../../src/utils/request"));
@@ -21,6 +22,19 @@ function Login(data) {
     method: "post",
     data: data //请求类型为post时
     // params: data //请求类型为get时
+
+  });
+}
+/*
+ *注册接口
+ */
+
+
+function Register(data) {
+  return _request["default"].request({
+    url: "/register/",
+    method: "post",
+    data: data //请求类型为post时
 
   });
 }

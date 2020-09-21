@@ -15,7 +15,8 @@ class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
-            username: ""
+            username: "",
+            module: "login"
         };
     }
     // 登录
@@ -43,7 +44,7 @@ class LoginForm extends Component {
     }
     render() {
         // code_button_loading, code_button_text, code_button_disabled
-        const { username } = this.state;
+        const { username, module } = this.state;
         // const _this = this;
         return (
             <Fragment>
@@ -94,7 +95,7 @@ class LoginForm extends Component {
                                     <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
-                                    <Code username={username} />
+                                    <Code username={username} module={module} />
                                     {/* <Button type="danger" block disabled={code_button_disabled} onClick={this.getCode} loading={code_button_loading}>{code_button_text}</Button> */}
                                 </Col>
                             </Row>

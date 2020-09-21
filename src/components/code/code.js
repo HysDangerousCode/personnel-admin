@@ -16,7 +16,8 @@ class Code extends Component {
             username: "",
             button_text: "获取验证码",
             button_loading: false,
-            button_disabled: false
+            button_disabled: false,
+            module: props.module
         }
     }
     componentWillReceiveProps({ username }) {
@@ -26,7 +27,7 @@ class Code extends Component {
         });
     }
     // 组件销毁
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(timer);
     };
     // 获取验证码
@@ -47,12 +48,13 @@ class Code extends Component {
         });
         const requestData = {
             username,
-            module: "login"
+            module: this.state.module
         };
         GetCode(requestData).then(response => {
             // 执行倒计时
             let _this = this;
             _this.countDown();
+            message.success(response.data.message);
             console.log(response);
         }).catch(error => {
             _this.setState({
