@@ -10,18 +10,27 @@ import { validate_password } from "../../utils/validate";
 import { Login } from "../../api/account";
 // 验证码组件
 import Code from "../../components/code/code";
+// 加密模块
+import CryptoJs from "crypto-js";
 // 登录表单组件
 class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
             username: "",
+            password: "",
+            code: "",
             module: "login"
         };
     }
     // 登录
     onFinish = (values) => {
-        Login().then(response => {
+        const requestData = {
+            username: this.state.username,
+            password: CryptoJs.MD5(this.state.password).toString(),
+            code: this.state.code
+        }
+        Login(requestData).then(response => {
             console.log(response);
         }).catch(error => {
             console.log(error);
@@ -34,11 +43,27 @@ class LoginForm extends Component {
         this.props.switchForm("register");
     }
     // input输入处理
-    inputChange = (e) => {
+    inputChangeUsername = (e) => {
         let _this = this;
         let _value = e.target.value;
         _this.setState({
             username: _value
+        });
+        console.log(_value);
+    }
+    inputChangePassword = (e) => {
+        let _this = this;
+        let _value = e.target.value;
+        _this.setState({
+            password: _value
+        });
+        console.log(_value);
+    }
+    inputChangeCode = (e) => {
+        let _this = this;
+        let _value = e.target.value;
+        _this.setState({
+            code: _value
         });
         console.log(_value);
     }
@@ -61,7 +86,7 @@ class LoginForm extends Component {
                                 { type: "email", message: "邮箱格式不正确！" }
                             ]
                         }>
-                            <Input value={username} onChange={this.inputChange} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
+                            <Input value={username} onChange={this.inputChangeUsername} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                         </Form.Item>
                         {/* 密码框 */}
                         <Form.Item name="password" rules={
@@ -81,7 +106,7 @@ class LoginForm extends Component {
                                 // }),
                             ]
                         }>
-                            <Input type="password" prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="字母+密码，大于6位 小于20位" />
+                            <Input type="password" onChange={this.inputChangePassword} prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="字母+密码，大于6位 小于20位" />
                         </Form.Item>
                         {/* 验证码 */}
                         <Form.Item name="Code" rules={
@@ -92,7 +117,7 @@ class LoginForm extends Component {
                         }>
                             <Row gutter={13}>
                                 <Col span={15}>
-                                    <Input prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
+                                    <Input onChange={this.inputChangeCode} prefix={<UnlockOutlined className="site-form-item-icon" />} placeholder="验证码" />
                                 </Col>
                                 <Col span={9}>
                                     <Code username={username} module={module} />

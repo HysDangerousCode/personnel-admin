@@ -33,6 +33,9 @@ class RegisterForm extends Component {
         Register(requestData).then(response => {
             const _data = response.data;
             message.success(_data.message);
+            if (_data.resCode === 0) {
+                this.toggleForm();
+            }
             console.log(response);
         }).catch(error => {
             console.log(error);
