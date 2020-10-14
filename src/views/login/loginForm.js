@@ -20,7 +20,8 @@ class LoginForm extends Component {
             username: "",
             password: "",
             code: "",
-            module: "login"
+            module: "login",
+            loading: false
         };
     }
     // 登录
@@ -30,10 +31,19 @@ class LoginForm extends Component {
             password: CryptoJs.MD5(this.state.password).toString(),
             code: this.state.code
         }
+        this.setState({
+            loading: true
+        });
         Login(requestData).then(response => {
             console.log(response);
+            this.setState({
+                loading: false
+            });
         }).catch(error => {
             console.log(error);
+            this.setState({
+                loading: false
+            });
         });
         console.log('Received values of form: ', values);
     };
@@ -69,7 +79,7 @@ class LoginForm extends Component {
     }
     render() {
         // code_button_loading, code_button_text, code_button_disabled
-        const { username, module } = this.state;
+        const { username, module, loading } = this.state;
         // const _this = this;
         return (
             <Fragment>
@@ -126,7 +136,7 @@ class LoginForm extends Component {
                             </Row>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button" block>登录</Button>
+                            <Button type="primary" loading={loading} htmlType="submit" className="login-form-button" block>登录</Button>
                         </Form.Item>
                     </Form>
                 </div>
