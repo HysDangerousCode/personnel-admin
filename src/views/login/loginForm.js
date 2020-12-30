@@ -12,6 +12,8 @@ import { Login } from "../../api/account";
 import Code from "../../components/code/code";
 // 加密模块
 import CryptoJs from "crypto-js";
+// session加密
+import { setToken } from "../../utils/session";
 // 登录表单组件
 class LoginForm extends Component {
     constructor() {
@@ -39,8 +41,11 @@ class LoginForm extends Component {
             this.setState({
                 loading: false
             });
+            const data=response.data.data;
+            // 存储token
+            setToken(data.token);
+            this.props.history.push("/index");
         }).catch(error => {
-            console.log(error);
             this.setState({
                 loading: false
             });
